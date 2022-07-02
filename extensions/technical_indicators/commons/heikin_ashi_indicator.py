@@ -41,3 +41,4 @@ class HeikinAshiIndicator(Indicator_Base):
         # removing the unused data
         drop_columns = ["Open_Previous", "Close_Previous", "HA_High", "HA_Low", "HA_Open", "HA_Close", "adjust"]
         self._DATA.drop(columns=drop_columns, axis=1, inplace=True)
+        return self._DATA

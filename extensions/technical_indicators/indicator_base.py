@@ -1,7 +1,19 @@
+import configargparse
 from abc import ABC, abstractmethod
 
 
 class Indicator_Base(ABC):
+    arg_parser = configargparse.get_argument_parser()
+    arg_parser.add('--high', help='this is a high column')
+    arg_parser.add('--low', help='this is a low column')
+    arg_parser.add('--adj_close', help='this is  an Adjust Close Price Column')
+    arg_parser.add('--date', help='this is a Date column')
+    adj_close = None
+    high = None
+    low = None
+    date = None
+    _DATA = None
+
     def __init__(self) -> None:
          self.args = self.arg_parser.parse_known_args()[0]
          self.parse_config()

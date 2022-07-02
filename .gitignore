@@ -1,0 +1,4 @@
+venv
+extensions/technical_indicators/commons/__pycache__/
+extensions/technical_indicators/__pycache__/
+cores/__pycache__/

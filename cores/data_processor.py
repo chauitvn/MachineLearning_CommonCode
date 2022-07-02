@@ -1,4 +1,5 @@
 from data_processors.vnstock import VnStock
+from extensions.technical_indicators.commons.heikin_ashi_indicator import HeikinAshiIndicator
 
 
 class DataProcessor():
@@ -18,4 +19,7 @@ class DataProcessor():
 
     def run(self):
         self.DATA = self.download_data()
+        # convert candlestick data to heikin ashi data
+        heikin_ashi = HeikinAshiIndicator(self.DATA)
+        self.DATA  = heikin_ashi.calculate()
         self.add_technical_indicator()
