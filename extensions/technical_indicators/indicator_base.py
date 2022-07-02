@@ -6,11 +6,11 @@ class Indicator_Base(ABC):
     arg_parser = configargparse.get_argument_parser()
     arg_parser.add('--high', help='this is a high column')
     arg_parser.add('--low', help='this is a low column')
-    arg_parser.add('--adj_close', help='this is  an Adjust Close Price Column')
+    arg_parser.add('--close', help='this is  an Close Price Column')
     arg_parser.add('--date', help='this is a Date column')
-    adj_close = None
     high = None
     low = None
+    close = None
     date = None
     _DATA = None
 
@@ -22,7 +22,7 @@ class Indicator_Base(ABC):
         """
         Parsing of config.ini file
         """
-        self.adj_close = self.args.adj_close
+        self.close = self.args.close
         self.high = self.args.high
         self.low = self.args.low
         self.date = self.args.date
