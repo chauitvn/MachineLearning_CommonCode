@@ -1,9 +1,1 @@
-venv
-extensions/technical_indicators/commons/__pycache__/
-extensions/technical_indicators/__pycache__/
-cores/__pycache__/
-cores/__pycache__/data_processor.cpython-39.pyc
-extensions/technical_indicators/ai_indicators/__pycache__/
-cores/__pycache__/data_processor.cpython-39.pyc
-cores\__pycache__
-cores/__pycache__/data_processor.cpython-39.pyc
+venv/**

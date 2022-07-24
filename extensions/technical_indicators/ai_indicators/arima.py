@@ -7,7 +7,7 @@ class ArimaIndicator(Indicator_Base):
         super().__init__()
 
     def calculate(self):
-        series = self.data[self.adj_close].diff(periods=1)
+        series = self.data[self.close].diff(periods=1)
 
         model = ARIMA(series, order=(5, 1, 0))
         model_fit = model.fit(disp=0)

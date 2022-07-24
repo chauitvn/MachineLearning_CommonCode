@@ -9,8 +9,8 @@ class FourierTransform(Indicator_Base):
         super().__init__()
     
     def calculate(self):
-        orginal_df = self.DATA[[self.adj_close]]
-        trend_df = rfft(orginal_df[self.adj_close].values)
+        orginal_df = self.DATA[[self.close]]
+        trend_df = rfft(orginal_df[self.close].values)
         trend_df[39:-39] = 0
         merge_df = pd.DataFrame(irfft(trend_df), columns=["Fourier"])
 
