@@ -1,2 +1,4 @@
-extensions/technical_indicators/__pycache__/indicator_base.cpython-39.pyc
-extensions/technical_indicators/__pycache__/technical_indicators.cpython-39.pyc
+extensions/technical_indicators/__pycache__/**
+venv/**
+cores/__pycache__/**
+extensions/technical_indicators/ai_indicators/__pycache__/**
