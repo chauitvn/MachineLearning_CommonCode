@@ -1,1 +1,2 @@
-venv/**
+extensions/technical_indicators/__pycache__/indicator_base.cpython-39.pyc
+extensions/technical_indicators/__pycache__/technical_indicators.cpython-39.pyc
