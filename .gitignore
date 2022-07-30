@@ -2,4 +2,4 @@ extensions/technical_indicators/__pycache__/**
 venv/**
 cores/__pycache__/**
 extensions/technical_indicators/ai_indicators/__pycache__/**
-extensions\technical_indicators\commons\__pycache__/**
+extensions/technical_indicators/commons/__pycache__/**
