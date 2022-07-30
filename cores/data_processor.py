@@ -1,6 +1,5 @@
 from data_processors.vnstock import VnStock
 from extensions.technical_indicators.commons.heikin_ashi_indicator import HeikinAshiIndicator
-from extensions.technical_indicators.technical_indicators import TechnicalIndicators
 
 
 class DataProcessor():
@@ -10,14 +9,9 @@ class DataProcessor():
         self.start_date = start_date
         self.end_date = end_date
 
-
     def download_data(self):
         vnStockObj = VnStock(self.symbols, self.start_date, self.end_date)
         return vnStockObj.get_raw_data()
-
-    def add_technical_indicator(self):
-        obj = TechnicalIndicators(self.DATA)
-        self.DATA = obj.calculate()
 
     def run(self):
         self.DATA = self.download_data()
