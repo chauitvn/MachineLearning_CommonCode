@@ -18,4 +18,4 @@ class DataProcessor():
         # convert candlestick data to heikin ashi data
         heikin_ashi = HeikinAshiIndicator(self.DATA)
         self.DATA  = heikin_ashi.calculate()
-        self.add_technical_indicator()
+        return self.DATA

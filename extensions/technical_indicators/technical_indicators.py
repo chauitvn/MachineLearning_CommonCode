@@ -24,3 +24,4 @@ class TechnicalIndicators(Indicator_Base):
         # ARiMA Indicator
         arima = ArimaIndicator(self.DATA)
         self.DATA = arima.calculate()
+        return self.DATA

@@ -1,5 +1,6 @@
 from datetime import date
 from cores.data_processor import DataProcessor
+from cores.feature_engineering_processor import FeatureEngineeringProcessor
 
 
 class Engine:
@@ -27,11 +28,13 @@ class Engine:
         today = date.today().strftime("%Y-%m-%d")
         
         dpObj = DataProcessor(data_source, symbol, start_date, today)
-        dpObj.run()
+        self.DATA = dpObj.run()
         print("End to run garthing data....")
 
     def feature_engineering(self):
         print("Start to run feature engineering....")
+        featureObj = FeatureEngineeringProcessor(self.DATA)
+        self.DATA = featureObj.run()
         print("End to run feature engineering....")
 
     def exploratory_data_analysis(self):
@@ -40,6 +43,7 @@ class Engine:
 
     def feature_selection(self):
         print("Start to run feature selection....")
+
         print("End to run feature selection....")
 
     def cross_validation(self):

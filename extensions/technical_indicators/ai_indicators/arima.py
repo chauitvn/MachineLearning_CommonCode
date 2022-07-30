@@ -11,5 +11,5 @@ class ArimaIndicator(Indicator_Base):
         model = ARIMA(series, order=(5, 1, 0))
         model_fit = model.fit()
         print(model_fit.summary())
-        self.DATA['ARIMA'] = model_fit.forecast()
+        self.DATA['ARIMA'] = model_fit.predict(steps=7)[0]
         return self.DATA
