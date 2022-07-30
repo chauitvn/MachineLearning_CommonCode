@@ -1,7 +1,6 @@
 from gym.envs.registration import register
 from copy import deepcopy
-
-from . import datasets
+from rl_training import datasets
 
 
 # register(
