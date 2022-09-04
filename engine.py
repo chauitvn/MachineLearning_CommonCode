@@ -1,11 +1,12 @@
 from datetime import date
 from cores.data_processor import DataProcessor
+from cores.class_base.engine_base import EngineBase
 from cores.feature_engineering_processor import FeatureEngineeringProcessor
 
 
-class Engine:
+class Engine(EngineBase):
     def __init__(self):
-        pass
+        super().__init__()
 
     def run(self):
         print("Running")
@@ -29,6 +30,8 @@ class Engine:
         
         dpObj = DataProcessor(data_source, symbol, start_date, today)
         self.DATA = dpObj.run()
+        if(self.isExportHisData):
+            self.DATA.to_csv('datasets\{0}.csv'.format(symbol))
         print("End to run garthing data....")
 
     def feature_engineering(self):
