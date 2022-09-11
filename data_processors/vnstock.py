@@ -1,5 +1,5 @@
 from extensions.vnquant.DataLoader import DataLoader
-from data_processors.data_processor_base import DataProcessorBase
+from cores.class_base.data_processor_base import DataProcessorBase
 
 
 class VnStock(DataProcessorBase):

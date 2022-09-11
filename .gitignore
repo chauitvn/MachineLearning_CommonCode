@@ -5,7 +5,8 @@ cores/class_base/__pycache__/**
 feature_engineering/__pycache__/**
 rl_training/__pycache__/**
 rl_training/datasets/__pycache__/**
+exploratory_data_analysis/__pycache__/**
 extensions/technical_indicators/__pycache__/**
 extensions/technical_indicators/commons/__pycache__/**
 extensions/technical_indicators/ai_indicators/__pycache__/**
-
+data_processors/__pycache__/**
