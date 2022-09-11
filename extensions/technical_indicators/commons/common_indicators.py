@@ -1,5 +1,5 @@
 import talib as ta
-from extensions.technical_indicators.indicator_base import Indicator_Base
+from cores.class_base.indicator_base import Indicator_Base
 
 
 class CommonIndicator(Indicator_Base):

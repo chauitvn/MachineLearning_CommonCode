@@ -2,7 +2,7 @@ from extensions.technical_indicators.ai_indicators.arima import ArimaIndicator
 from extensions.technical_indicators.ai_indicators.fourier_transform import FourierTransform
 from extensions.technical_indicators.ai_indicators.neural_prophet import NeuralFbProphet
 from extensions.technical_indicators.commons.common_indicators import CommonIndicator
-from extensions.technical_indicators.indicator_base import Indicator_Base
+from cores.class_base.indicator_base import Indicator_Base
 
 
 class TechnicalIndicators(Indicator_Base):
