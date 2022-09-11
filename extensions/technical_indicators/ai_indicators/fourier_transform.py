@@ -1,6 +1,6 @@
 import pandas as pd
 from scipy.fft import rfft, rfftfreq, irfft
-from extensions.technical_indicators.indicator_base import Indicator_Base
+from cores.class_base.indicator_base import Indicator_Base
 
 
 class FourierTransform(Indicator_Base):
