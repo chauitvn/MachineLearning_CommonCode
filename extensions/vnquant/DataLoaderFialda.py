@@ -23,7 +23,8 @@ class DataLoaderFialda(DataLoadProto):
 
         while is_stop_flag:
             API_FIALDA = f'https://fwtapi2.fialda.com/api/services/app/StockInfo/GetHistoricalData?symbol={self.symbols}&fromDate={start_date}&toDate={end_date}&pageNumber={pageNumber}&pageSize=50'
-            res = requests.get(API_FIALDA)
+            HEADERS = {'content-type': 'application/x-www-form-urlencoded', 'User-Agent': 'Mozilla'}
+            res = requests.get(API_FIALDA,headers=HEADERS, verify=False)
             data = res.json()["result"]['items']
             if data:
                 result_df = pd.concat([result_df, pd.DataFrame.from_dict(data)])
