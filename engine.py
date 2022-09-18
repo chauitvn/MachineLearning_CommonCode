@@ -1,7 +1,9 @@
+import pandas as pd
 from datetime import date
 from cores.data_processor import DataProcessor
 from cores.class_base.engine_base import EngineBase
 from cores.feature_engineering_processor import FeatureEngineeringProcessor
+from cores.stock_analysis_processor import StockAnalysisProcessor
 
 
 class Engine(EngineBase):
@@ -11,7 +13,7 @@ class Engine(EngineBase):
     def run(self):
         print("Running")
         self.garthering_data()
-        self.feature_engineering()
+        #self.feature_engineering()
         self.exploratory_data_analysis()
         self.feature_selection()
         self.cross_validation()
@@ -22,16 +24,20 @@ class Engine(EngineBase):
 
     def garthering_data(self):
         print("Start to run garthing data....")
-        # Initial input data
-        data_source = "vnd"
-        symbol = 'VPB'
-        start_date = "2000-01-01"
-        today = date.today().strftime("%Y-%m-%d")
+        symbol = self.stock_symbol
+
+        if(self.source_data =='csv'):
+            self.DATA = pd.read_csv('datasets\{0}.csv'.format(symbol), parse_dates = ['date'], index_col = ['date'])
+        else:
+            # Initial input data
+            start_date = "2000-01-01"
+            today = date.today().strftime("%Y-%m-%d")
         
-        dpObj = DataProcessor(data_source, symbol, start_date, today)
-        self.DATA = dpObj.run()
-        if(self.isExportHisData):
-            self.DATA.to_csv('datasets\{0}.csv'.format(symbol))
+            dpObj = DataProcessor(start_date, today)
+            self.DATA = dpObj.run()
+            # to check whether do we need to export stock data to local or not.
+            if(self.isExportHisData):
+                self.DATA.to_csv('datasets\{0}.csv'.format(symbol))
         print("End to run garthing data....")
 
     def feature_engineering(self):
@@ -42,6 +48,8 @@ class Engine(EngineBase):
 
     def exploratory_data_analysis(self):
         print("Start to run exploratory data analysis....")
+        analysisObj = StockAnalysisProcessor(self.DATA)
+        self.DATA = analysisObj.run()
         print("End to run exploratory data analysis....")
 
     def feature_selection(self):
