@@ -62,10 +62,16 @@ class SmoothedHeikinAshiIndicator(Indicator_Base):
 
 
     def plot(self):
-        date = self._DATA.index
+        sampleData = self._DATA.tail(200)
+        
+        date = sampleData.index
         fig = go.Figure(data=[go.Candlestick(x=date,
-                open=self._DATA[self.open],
-                high=self._DATA[self.high],
-                low=self._DATA[self.low],
-                close=self._DATA[self.close],)])
+                open=sampleData[self.open],
+                high=sampleData[self.high],
+                low=sampleData[self.low],
+                close=sampleData[self.close],)])
+        fig.update_layout(
+            title='The Smoothed Heiki Ashi',
+            yaxis_title='{} Stock'.format(self.stock_symbol)
+        )
         fig.show()

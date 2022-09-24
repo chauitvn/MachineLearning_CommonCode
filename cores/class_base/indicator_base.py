@@ -9,6 +9,7 @@ class Indicator_Base(ABC):
     arg_parser.add('--close', help='this is  an Close Price Column')
     arg_parser.add('--open', help='this is  an Open Price Column')
     arg_parser.add('--date', help='this is a Date column')
+    arg_parser.add('--stock_symbol', help='this is the stock symbol which needs to get historical data.')
 
     def __init__(self) -> None:
          self.args = self.arg_parser.parse_known_args()[0]
@@ -23,6 +24,7 @@ class Indicator_Base(ABC):
         self.high = self.args.high
         self.low = self.args.low
         self.date = self.args.date
+        self.stock_symbol = self.args.stock_symbol
 
     @abstractmethod
     def calculate(self):

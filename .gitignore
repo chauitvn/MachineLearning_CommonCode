@@ -10,3 +10,4 @@ extensions/technical_indicators/__pycache__/**
 extensions/technical_indicators/commons/__pycache__/**
 extensions/technical_indicators/ai_indicators/__pycache__/**
 data_processors/__pycache__/**
+extensions/vnquant/__pycache__/**
