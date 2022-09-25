@@ -1,5 +1,5 @@
 from statsmodels.tsa.arima.model import ARIMA
-from extensions.technical_indicators.indicator_base import Indicator_Base
+from cores.class_base.indicator_base import Indicator_Base
 
 class ArimaIndicator(Indicator_Base):
     def __init__(self, data) -> None:
@@ -10,6 +10,5 @@ class ArimaIndicator(Indicator_Base):
         series = self.DATA[self.close].diff(periods=1)
         model = ARIMA(series, order=(5, 1, 0))
         model_fit = model.fit()
-        print(model_fit.summary())
-        self.DATA['ARIMA'] = model_fit.predict(steps=7)[0]
+        self.DATA['ARIMA'] = model_fit.forcast()[0]
         return self.DATA
