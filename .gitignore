@@ -13,3 +13,5 @@ data_processors/__pycache__/**
 extensions/vnquant/__pycache__/**
 StockPredictionPortal/StockPredictionApp/__pycache__/**
 StockPredictionPortal/StockPredictionPortal/__pycache__/**
+StockPredictionPortal/GatheringDataApp/__pycache__/**
+StockPredictionPortal/GatheringDataApp/migrations/__pycache__/**
