@@ -16,22 +16,16 @@
                 <h3 class="card-title">Gathering Data</h3>
             </div>
             <!-- /.card-header -->
-            <!-- form start -->
-            <form id="crawlingData" method="POST" enctype="multipart/form-data">
-                <!-- Security token -->
-                {% csrf_token %}
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Stock Name</label>
-                        <input class="form-control" type="text" name="stockName" placeholder="Stock Name"
-                            value="FUEVFVND" required>
-                    </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Stock Name</label>
+                    <input class="form-control" type="text" name="stockName" placeholder="Stock Name"
+                        value="FUEVFVND" required>
                 </div>
-                <div class="card-footer">
-                    <button type="button" class="btn btn-primary" id="btnCrawling">Crawling</button>
-                    <button type="button" class="btn btn-default">Cancel</button>
-                </div>
-            </form>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-primary" id="btnCrawling">Crawling</button>
+            </div>
         </div>
         <!-- /.card -->
     </div>
@@ -40,7 +34,7 @@
             <div class="card-header">
                 <h3 class="card-title">Stock Data</h3>
             </div>
-            <div class="card-body" name="historical-stock">
+            <div class="card-body" id="historical-stock">
             </div>
         </div>
     </div>
@@ -56,6 +50,7 @@
     $(document).ready(function () {
         var stockName = $('input[name="stockName"]').val().trim();
         $("#btnCrawling").click(function () {
+            $('#historical-stock').html('');
             // Create Ajax Call
             $.ajax({
                 url: '{% url "crawlingData" %}',
@@ -65,7 +60,7 @@
                 dataType: 'json',
                 success: function (data) {
                     if (data) {
-                        $('div[name="historical-stock"]').append(data.fig)
+                        $('#historical-stock').append(data.fig)
                     }
                 }
             });
