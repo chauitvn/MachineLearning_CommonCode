@@ -3,9 +3,12 @@ from cores.class_base.data_processor_base import DataProcessorBase
 
 
 class VnStock(DataProcessorBase):
-    def __init__(self, start_date:str, end_date:str):
+    def __init__(self, symbol: str, data_source:str, start_date:str, end_date:str):
+        self.stock_symbol = symbol
+        self.data_source = data_source
         self.start_date = start_date
         self.end_date = end_date
+
         super().__init__()
 
     def get_raw_data(self):

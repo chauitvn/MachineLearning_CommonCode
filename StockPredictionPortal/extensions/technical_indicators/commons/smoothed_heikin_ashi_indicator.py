@@ -57,7 +57,6 @@ class SmoothedHeikinAshiIndicator(Indicator_Base):
 
     def calculate(self):
         self.buiding_indicator()
-        self.plot()
         return self._DATA
 
 

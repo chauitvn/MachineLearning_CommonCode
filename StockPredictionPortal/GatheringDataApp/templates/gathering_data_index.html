@@ -9,7 +9,7 @@
 {% endblock %}
 {% block content %}
 <div class="row">
-    <div class="col-6">
+    <div class="col-12">
         <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header">
@@ -17,22 +17,32 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form method="POST" enctype="multipart/form-data">
+            <form id="crawlingData" method="POST" enctype="multipart/form-data">
                 <!-- Security token -->
                 {% csrf_token %}
                 <div class="card-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Stock Name</label>
-                        <input class="form-control" type="text" name="Stock Name" placeholder="Stock Name" value="FUEVFVND" required>
+                        <input class="form-control" type="text" name="stockName" placeholder="Stock Name"
+                            value="FUEVFVND" required>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Crawling</button>
                     <button type="button" class="btn btn-default">Cancel</button>
                 </div>
             </form>
         </div>
         <!-- /.card -->
+    </div>
+    <div class="col-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Stock Data</h3>
+            </div>
+            <div class="card-body" name="historical-stock">
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
@@ -41,9 +51,25 @@
 <script src="{% static 'portal_site/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
 <script src="{% static 'portal_site/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
 <script src="{% static 'portal_site/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#table').DataTable();
+        var stockName = $('input[name="stockName"]').val().trim();
+        $("form#crawlingData").submit(function () {
+            // Create Ajax Call
+            $.ajax({
+                url: '{% url "crawlingData" %}',
+                data: {
+                    'stockName': stockName
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data) {
+                        $('div[name="historical-stock"]').append(data.fig)
+                    }
+                }
+            });
+        });
     });
 </script>
 {% endblock %}

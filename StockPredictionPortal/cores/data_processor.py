@@ -5,13 +5,15 @@ from extensions.technical_indicators.commons.smoothed_heikin_ashi_indicator impo
 
 
 class DataProcessor(DataProcessorBase):
-    def __init__(self, start_date: str, end_date: str, **kwargs):
+    def __init__(self, symbol: str, data_source:str, start_date: str, end_date: str, **kwargs):
         self.start_date = start_date
         self.end_date = end_date
+        self.symbol = symbol
+        self.data_source = data_source
         super().__init__()
 
     def download_data(self):
-        vnStockObj = VnStock(self.start_date, self.end_date)
+        vnStockObj = VnStock(self.symbol, self.data_source, self.start_date, self.end_date)
         return vnStockObj.get_raw_data()
 
     def run(self):
