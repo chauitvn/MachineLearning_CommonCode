@@ -48,8 +48,8 @@
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        var stockName = $('input[name="stockName"]').val().trim();
         $("#btnCrawling").click(function () {
+            var stockName = $('input[name="stockName"]').val().trim();
             $('#historical-stock').html('');
             // Create Ajax Call
             $.ajax({
