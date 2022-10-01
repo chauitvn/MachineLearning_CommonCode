@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{title_of_page}}{% endblock %}
+
+{% block content %}
+<div id="configurationList"></div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'portal_site/plugins/jsgrid/jsgrid.min.js' %}"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#configurationList").jsGrid({
+            height: "100%",
+            width: "100%",
+            sorting: true,
+            paging: true,
+            url: '{% url "allConfiguration" %}',
+            datatype: "json",
+            colNames:['key', 'value', 'HasActive'],
+            colModel: [
+                {name: 'key', width: 40, sorttype:"string", align:'center'},
+                {name: 'value', width: 40, sorttype:"string", align:'center'},
+            ],
+            fields: [
+                { name: "key", type: "text", width: 50 },
+                { name: "value", type: "text", width: 200 },
+                { name: "HasActive", type: "checkbox", title: "Active" }
+            ]
+        });
+    });
+</script>
+{% endblock %}
