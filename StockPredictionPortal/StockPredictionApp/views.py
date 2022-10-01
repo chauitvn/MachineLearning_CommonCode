@@ -1,5 +1,7 @@
-from django.shortcuts import render
+import pickle
 from .models import Configuration
+from django.shortcuts import render
+from django.core import serializers
 from django.http import JsonResponse
 
 # Create your views here.
@@ -14,15 +16,12 @@ def configuration_index(request):
     return render(request, "configuration.html", context)
 
 def configuration(request):
-    config_list = Configuration.objects.all()
+    all_items = Configuration.objects.all()
 
-    json=[]
+    """ result=[]
     for item in config_list:
-        json.append({'key':item.key, 'value':item.value, 'HasActive':item.HasActive})
+        result.append({'key':item.key, 'value':item.value, 'HasActive':item.HasActive}) """
+    
+    result = serializers.serialize('json', all_items, fields=('key','value', "HasActive"))
 
-    result = {
-        "title_of_page": "Configuration",
-        "data": config_list
-    }
-
-    return JsonResponse(config_list)
+    return JsonResponse(result, safe=False)
