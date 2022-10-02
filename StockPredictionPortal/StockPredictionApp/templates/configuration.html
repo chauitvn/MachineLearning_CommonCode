@@ -2,6 +2,14 @@
 {% load static %}
 {% block title %}{{title_of_page}}{% endblock %}
 
+{% block css %}
+    <link type="text/css" rel="stylesheet" href="{% static 'portal_site/plugins/jsgrid/jsgrid.min.css' %}" />
+    <link type="text/css" rel="stylesheet" href="{% static 'portal_site/plugins/jsgrid/jsgrid-theme.min.css' %}" />
+
+    <!-- <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" /> -->
+{% endblock %}
+
 {% block content %}
 <div id="configurationList"></div>
 {% endblock %}
@@ -12,11 +20,17 @@
 <script type="text/javascript">
     $(function () {
         $("#configurationList").jsGrid({
-            height: "100%",
+            height: "auto",
             width: "100%",
+            filtering: false,
+            inserting: true,
+            editing: true,
             sorting: true,
             paging: true,
+            pageSize: 15,
+            pageButtonCount: 5,
             autoload: true,
+
             controller: {
                 loadData: function () {
                     var d = $.Deferred();
@@ -24,15 +38,17 @@
                         url: '{% url "allConfiguration" %}',
                         datatype: "json"
                     }).done(function (response) {
-                        d.resolve(response.value);
+                        d.resolve(JSON.parse(response));
+
+                        console.log(JSON.parse(response));
                     });
                     return d.promise();
                 }
             },
             fields: [
-                { name: "key", type: "text", width: 50 },
-                { name: "value", type: "text", width: 200 },
-                { name: "HasActive", type: "checkbox", title: "Active" }
+                { name: "fields.key", type: "text", title: "Key" },
+                { name: "fields.value", type: "text", title: "Value" },
+                { name: "fields.HasActive", type: "checkbox", title: "Active" }
             ]
         });
     });
