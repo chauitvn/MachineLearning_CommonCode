@@ -19,6 +19,6 @@ from django.urls import path, include
 from .views import CrawlingHistoryData
 
 urlpatterns = [
-    path("", views.index, name="crawlingData"),
+    path("", views.index, name="g_index"),
     path("crawling", CrawlingHistoryData.as_view(), name="crawlingData"),
 ]

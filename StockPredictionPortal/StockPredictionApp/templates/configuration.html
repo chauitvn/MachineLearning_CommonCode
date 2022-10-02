@@ -16,13 +16,19 @@
             width: "100%",
             sorting: true,
             paging: true,
-            url: '{% url "allConfiguration" %}',
-            datatype: "json",
-            colNames:['key', 'value', 'HasActive'],
-            colModel: [
-                {name: 'key', width: 40, sorttype:"string", align:'center'},
-                {name: 'value', width: 40, sorttype:"string", align:'center'},
-            ],
+            autoload: true,
+            controller: {
+                loadData: function () {
+                    var d = $.Deferred();
+                    $.ajax({
+                        url: '{% url "allConfiguration" %}',
+                        datatype: "json"
+                    }).done(function (response) {
+                        d.resolve(response.value);
+                    });
+                    return d.promise();
+                }
+            },
             fields: [
                 { name: "key", type: "text", width: 50 },
                 { name: "value", type: "text", width: 200 },
