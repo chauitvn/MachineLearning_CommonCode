@@ -35,8 +35,6 @@
                         datatype: "json"
                     }).done(function (response) {
                         d.resolve(JSON.parse(response));
-
-                        console.log(JSON.parse(response));
                     });
                     return d.promise();
                 }
