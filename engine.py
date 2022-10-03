@@ -13,7 +13,9 @@ class Engine(EngineBase):
     def run(self):
         print("Running")
         self.garthering_data()
-        #self.feature_engineering()
+        # Exploring the orginal data
+        self.exploratory_data_analysis()
+        self.feature_engineering()
         #self.exploratory_data_analysis()
         #self.feature_selection()
         #self.cross_validation()
