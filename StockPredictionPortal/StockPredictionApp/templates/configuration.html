@@ -19,7 +19,7 @@
         $("#configurationList").jsGrid({
             height: "auto",
             width: "100%",
-            filtering: false,
+            filtering: true,
             inserting: true,
             editing: true,
             sorting: true,
@@ -35,8 +35,6 @@
                         datatype: "json"
                     }).done(function (response) {
                         d.resolve(JSON.parse(response));
-
-                        console.log(JSON.parse(response));
                     });
                     return d.promise();
                 }
@@ -44,7 +42,8 @@
             fields: [
                 { name: "fields.key", type: "text", title: "Key" },
                 { name: "fields.value", type: "text", title: "Value" },
-                { name: "fields.HasActive", type: "checkbox", title: "Active" }
+                { name: "fields.HasActive", type: "checkbox", title: "Active" },
+                { type: "control" }
             ]
         });
     });

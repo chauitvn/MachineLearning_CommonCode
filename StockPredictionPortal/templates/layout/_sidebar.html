@@ -18,30 +18,23 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
         <li class="nav-item menu-open">
-            <a href="{% url 'home'%}" class="nav-link active">
-                <i class="fas fa-home"></i>
-                <p>
-                    Trang Chủ
-                </p>
-            </a>
-        </li>
-        <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
-                <i class="fas fa-user-cog"></i>
+                <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
-                    Quản trị<i class="right fas fa-angle-left"></i>
+                    Quản trị
+                    <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{% url 'c_index'%}" class="nav-link active">
-                        <i class="fas fa-arrow-right"></i>
-                        <p>Cấu Hình</p>
+                    <a href="#" class="nav-link active">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Ngành</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="fas fa-funnel-dollar"></i>
+                        <i class="far fa-circle nav-icon"></i>
                         <p>Quỹ</p>
                     </a>
                 </li>
@@ -49,16 +42,8 @@
             </ul>
         </li>
         <li class="nav-item menu-open">
-            <a href="{% url 'news'%}" class="nav-link active">
-                <i class="fas fa-newspaper"></i>
-                <p>
-                    Tin Tức
-                </p>
-            </a>
-        </li>
-        <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
-                <i class="fas fa-globe"></i>
+                <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     Chức Năng
                     <i class="right fas fa-angle-left"></i>
@@ -66,16 +51,16 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{% url 'g_index'%}" class="nav-link">
-                        <i class="far fa-windsock"></i>
-                        <p>Phân Tích Kỹ Thuật</p>
+                    <a href="#" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Cổ Phiếu Quỹ</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'f_index'%}" class="nav-link">
-                        <i class="fas fa-hand-holding-usd"></i>
+                    <a href="pages/widgets.html" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
                         <p>
-                            Dự báo giá cổ phiếu
+                            Cổ Phiếu Theo Dõi
                         </p>
                     </a>
                 </li>
@@ -92,3 +77,4 @@
     </ul>
 </nav>
 <!-- /.sidebar-menu -->
+
