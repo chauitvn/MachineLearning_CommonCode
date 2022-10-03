@@ -23,3 +23,5 @@ StockPredictionPortal/extensions/technical_indicators/ai_indicators/**
 StockPredictionPortal/extensions/vnquant/__pycache__/**
 StockPredictionPortal/extensions/technical_indicators/commons/__pycache__/**
 StockPredictionPortal/StockPredictionApp/migrations/__pycache__/**
+StockPredictionPortal/FeatureEngineeringApp/__pycache__/**
+StockPredictionPortal/FeatureEngineeringApp/migrations/__pycache__/**
