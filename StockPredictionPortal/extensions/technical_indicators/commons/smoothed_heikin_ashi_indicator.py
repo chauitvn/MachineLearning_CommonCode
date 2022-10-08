@@ -18,17 +18,17 @@ class SmoothedHeikinAshiIndicator(Indicator_Base):
         return_value = min(values)
         return return_value
 
-    def buiding_indicator(self):
+    def buiding_indicator(self, periods):
         self._DATA["Open_Previous"] = self._DATA["open"].shift(periods=1)
         self._DATA["Close_Previous"] = self._DATA["close"].shift(periods=1)
 
         # Calculate EMA
-        self._DATA["ema_open"] = ta.EMA(self._DATA["open"], 6)
-        self._DATA["ema_close"] = ta.EMA(self._DATA["close"], 6)
-        self._DATA["ema_high"] = ta.EMA(self._DATA["high"], 6)
-        self._DATA["ema_low"] = ta.EMA(self._DATA["low"], 6)
-        self._DATA["ema_open_previous"] = ta.EMA(self._DATA["Open_Previous"], 6)
-        self._DATA["ema_close_previous"] = ta.EMA(self._DATA["Close_Previous"], 6)
+        self._DATA["ema_open"] = ta.EMA(self._DATA["open"], periods)
+        self._DATA["ema_close"] = ta.EMA(self._DATA["close"], periods)
+        self._DATA["ema_high"] = ta.EMA(self._DATA["high"], periods)
+        self._DATA["ema_low"] = ta.EMA(self._DATA["low"], periods)
+        self._DATA["ema_open_previous"] = ta.EMA(self._DATA["Open_Previous"], periods)
+        self._DATA["ema_close_previous"] = ta.EMA(self._DATA["Close_Previous"], periods)
 
 
         # Heiken-Ashi Open
@@ -56,14 +56,15 @@ class SmoothedHeikinAshiIndicator(Indicator_Base):
 
 
     def calculate(self):
-        self.buiding_indicator()
+        self.buiding_indicator(5)
         return self._DATA
 
 
     def plot(self):
-        sampleData = self._DATA.tail(200)
+        sampleData = self._DATA.tail(100)
         
         date = sampleData.index
+        
         fig = go.Figure(data=[go.Candlestick(x=date,
                 open=sampleData[self.open],
                 high=sampleData[self.high],
