@@ -24,25 +24,90 @@
             editing: true,
             sorting: true,
             paging: true,
+            autoload: true,
+
+            onItemUpdating: function(args) {
+                previousItem = args.previousItem;
+            },
+
             pageSize: 15,
             pageButtonCount: 5,
-            autoload: true,
+
+            deleteConfirm: "Do you really want to delete the item?",
+
             controller: {
                 loadData: function () {
                     var d = $.Deferred();
                     $.ajax({
                         url: '{% url "allConfiguration" %}',
-                        datatype: "json"
+                        datatype: "JSON"
                     }).done(function (response) {
                         d.resolve(JSON.parse(response));
                     });
                     return d.promise();
-                }
+                },
+
+                insertItem: function(item) {
+                    var d = $.Deferred();
+
+                    console.log(item);
+
+                    $.ajax({
+                        url: '{% url "edit" %}',
+                        type : "POST",
+                        data: item
+                    }).done(function(response) {
+                        //alert('success');
+                        d.resolve(response);
+                    }).fail(function() {
+                        d.resolve(previousItem);
+                    });
+
+                    return d.promise();
+                },
+
+                updateItem: function(item) {
+                    var d = $.Deferred();
+
+                    console.log(item);
+
+                    $.ajax({
+                        url: '{% url "edit" %}',
+                        type : "POST",
+                        data: item
+                    }).done(function(response) {
+                        //alert('success');
+                        d.resolve(response);
+                    }).fail(function() {
+                        d.resolve(previousItem);
+                    });
+
+                    return d.promise();
+                },
+
+                deleteItem: function(item) {
+                    var d = $.Deferred();
+
+                    console.log(item);
+
+                    $.ajax({
+                        url: '{% url "edit" %}',
+                        type : "POST",
+                        data: item
+                    }).done(function(response) {
+                        //alert('success');
+                        d.resolve(response);
+                    }).fail(function() {
+                        d.resolve(previousItem);
+                    });
+
+                    return d.promise();
+                },
             },
             fields: [
-                { name: "fields.key", type: "text", title: "Key" },
-                { name: "fields.value", type: "text", title: "Value" },
-                { name: "fields.HasActive", type: "checkbox", title: "Active" },
+                { name: "fields.key", type: "text", title: "Key", validate: "required" },
+                { name: "fields.value", type: "text", title: "Value", validate: "required" },
+                { name: "fields.HasActive", type: "checkbox", title: "Active", validate: "required" },
                 { type: "control" }
             ]
         });
