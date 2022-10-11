@@ -24,7 +24,7 @@ class CrawlingHistoryData(View):
         self.DATA = dpObj.run()
 
         date = datetime.date.today().strftime("%Y-%m-%d")
-        directory = f"D:\OutsourceViet//SourceCode//MachineLearning_CommonCode//StockPredictionPortal//datasets//{date}"
+        directory = f"D:\OutsourceViet//SourceCode//MachineLearning_CommonCode//datasets//{date}"
         if not os.path.isdir(directory):
             os.mkdir(directory)
 
@@ -36,7 +36,7 @@ class CrawlingHistoryData(View):
         self.close ="close"
 
         #Plot Stock Historical Data
-        sampleData = self.DATA.tail(200)
+        sampleData = self.DATA.tail(100)
         
         date = sampleData.index
         fig = make_subplots(rows=2, cols=1, shared_xaxes=True, 

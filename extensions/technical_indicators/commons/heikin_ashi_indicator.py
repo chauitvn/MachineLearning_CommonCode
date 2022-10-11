@@ -38,6 +38,11 @@ class HeikinAshiIndicator(Indicator_Base):
         self._DATA["high"] = self._DATA["HA_High"]
         self._DATA["low"] = self._DATA["HA_Low"]
 
+        # Resample the time series data
+        self._DATA = self._DATA.asfreq('D')
+        self._DATA["adjust_weekly"] = self._DATA["close"].resample('W-MON').mean()
+        self._DATA["adjust_monthly"] = self._DATA["close"].resample('M').mean()
+
         # removing the unused data
         drop_columns = ["Open_Previous", "Close_Previous", "HA_High", "HA_Low", "HA_Open", "HA_Close", "adjust"]
         self._DATA.drop(columns=drop_columns, axis=1, inplace=True)

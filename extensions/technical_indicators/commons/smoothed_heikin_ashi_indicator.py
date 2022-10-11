@@ -49,6 +49,14 @@ class SmoothedHeikinAshiIndicator(Indicator_Base):
         self._DATA["high"] = self._DATA["HA_High"]
         self._DATA["low"] = self._DATA["HA_Low"]
 
+        # Resample the time series data
+        self._DATA = self._DATA.asfreq('D')
+        self._DATA["adjust_weekly"] = self._DATA["close"].resample('W-MON').mean()
+        self._DATA["adjust_monthly"] = self._DATA["close"].resample('M').mean()
+
+        self._DATA.fillna(method ='bfill', inplace=True)
+        self._DATA.fillna(method ='ffill', inplace=True)
+        
         # removing the unused data
         drop_columns = ["Open_Previous", "Close_Previous", "HA_High", "HA_Low", "HA_Open", "HA_Close", "adjust", "ema_open","ema_close",
                     "ema_high","ema_low","ema_open_previous","ema_close_previous"]
@@ -58,20 +66,3 @@ class SmoothedHeikinAshiIndicator(Indicator_Base):
     def calculate(self):
         self.buiding_indicator(5)
         return self._DATA
-
-
-    def plot(self):
-        sampleData = self._DATA.tail(100)
-        
-        date = sampleData.index
-        
-        fig = go.Figure(data=[go.Candlestick(x=date,
-                open=sampleData[self.open],
-                high=sampleData[self.high],
-                low=sampleData[self.low],
-                close=sampleData[self.close],)])
-        fig.update_layout(
-            title='The Smoothed Heiki Ashi',
-            yaxis_title='{} Stock'.format(self.stock_symbol)
-        )
-        fig.show()

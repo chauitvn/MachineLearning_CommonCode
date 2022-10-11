@@ -22,7 +22,7 @@ class DataProcessor(DataProcessorBase):
         self.DATA = self.download_data()
 
         date = datetime.date.today().strftime("%Y-%m-%d")
-        directory = f"D:\OutsourceViet//SourceCode//MachineLearning_CommonCode//StockPredictionPortal//datasets//{date}"
+        directory = f"D:\OutsourceViet//SourceCode//MachineLearning_CommonCode//datasets//{date}"
         if not os.path.isdir(directory):
             os.mkdir(directory)
 

@@ -9,7 +9,7 @@ class CommonIndicator(Indicator_Base):
 
     def calculate(self):
         # Create 7 and 21 days Moving Average
-        self.DATA["ma7"] = ta.MA(self.DATA[self.close], 7)
+        self.DATA["ma5"] = ta.MA(self.DATA[self.close], 5)
         self.DATA["ma21"] = ta.MA(self.DATA[self.close], 7)
         #Create MACD
         macd, macdsignal, macdhist = ta.MACD(self.DATA[self.close], fastperiod=12, slowperiod=26, signalperiod=9)

@@ -1,4 +1,4 @@
-from feature_engineering.feature_engineering import FeatureEngineering
+from StockPrediction_backend.feature_engineering import FeatureEngineering
 
 
 class FeatureEngineeringProcessor():
