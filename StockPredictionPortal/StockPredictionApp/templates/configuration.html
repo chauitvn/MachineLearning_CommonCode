@@ -13,6 +13,7 @@
 
 {% block js %}
 <script src="{% static 'portal_site/plugins/jsgrid/jsgrid.min.js' %}"></script>
+<script src="{% static 'portal_site/plugins/jquery-cookie/js.cookie.min.js' %}"></script>
 
 <script type="text/javascript">
     $(function () {
@@ -42,6 +43,9 @@
                         url: '{% url "allConfiguration" %}',
                         datatype: "JSON"
                     }).done(function (response) {
+
+                        console.log(response);
+
                         d.resolve(JSON.parse(response));
                     });
                     return d.promise();
@@ -53,7 +57,8 @@
                     console.log(item);
 
                     $.ajax({
-                        url: '{% url "edit" %}',
+                        headers: {"X-CSRFToken": Cookies.get('csrftoken')},
+                        url: '{% url "add" %}',
                         type : "POST",
                         data: item
                     }).done(function(response) {
@@ -69,14 +74,12 @@
                 updateItem: function(item) {
                     var d = $.Deferred();
 
-                    console.log(item);
-
                     $.ajax({
+                        headers: {"X-CSRFToken": Cookies.get('csrftoken')},
                         url: '{% url "edit" %}',
                         type : "POST",
                         data: item
                     }).done(function(response) {
-                        //alert('success');
                         d.resolve(response);
                     }).fail(function() {
                         d.resolve(previousItem);
@@ -88,14 +91,12 @@
                 deleteItem: function(item) {
                     var d = $.Deferred();
 
-                    console.log(item);
-
                     $.ajax({
-                        url: '{% url "edit" %}',
+                        headers: {"X-CSRFToken": Cookies.get('csrftoken')},
+                        url: '{% url "del" %}',
                         type : "POST",
                         data: item
                     }).done(function(response) {
-                        //alert('success');
                         d.resolve(response);
                     }).fail(function() {
                         d.resolve(previousItem);
@@ -105,6 +106,7 @@
                 },
             },
             fields: [
+                { name: "pk", type: "hidden", title: "Key", visible: false },
                 { name: "fields.key", type: "text", title: "Key", validate: "required" },
                 { name: "fields.value", type: "text", title: "Value", validate: "required" },
                 { name: "fields.HasActive", type: "checkbox", title: "Active", validate: "required" },
