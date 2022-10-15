@@ -1,11 +1,13 @@
 import os
 import datetime
 import numpy as np
+import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from plotly.offline import plot
 from django.shortcuts import render
 from django.http import JsonResponse
+from neuralprophet import NeuralProphet
 from cores.data_processor import DataProcessor
 from django.views.generic import TemplateView, View, DeleteView
 from extensions.technical_indicators.ai_indicators.neural_prophet import NeuralFbProphet
@@ -72,10 +74,29 @@ class StockAnalysis(View):
     def get(self, request):
         analysis_model = request.GET.get('analysis_model', None)
 
-        if analysis_model =="Neural Prophet":
-            obj = NeuralFbProphet()
-            obj.calculate()
+        date = datetime.date.today().strftime("%Y-%m-%d")
+        DATA = pd.read_csv(f"D:\OutsourceViet//SourceCode//MachineLearning_CommonCode//datasets//{date}//FUEVFVND.csv")
 
+        close ="close"
+        date = "date"
+
+        result = None
+
+        # Get Data Source
+        if analysis_model =="on":
+            new_df = DATA[[date, close]]
+            new_df = new_df.rename(columns={date: 'ds', close: 'y'})
+            # fit the model
+            model = NeuralProphet()
+            model.fit(new_df, freq='D')
+            future = model.make_future_dataframe(new_df, periods=20, n_historic_predictions=len(new_df))
+            forecast_df = model.predict(future)
+            forecast_df.set_index("ds", inplace=True)
+            result = forecast_df.tail(200)
+
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x =result.index, y= result['y'],  mode='lines', name="price", line=dict(color='blue', width=2)))
+        fig.add_trace(go.Scatter(x=result.index, y=result['yhat1'].values,  mode='lines', name="pridiction price", line=dict(color='red', width=2)))
 
         plot_div = plot(fig,output_type='div')
 

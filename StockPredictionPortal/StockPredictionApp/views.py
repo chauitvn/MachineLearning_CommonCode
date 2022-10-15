@@ -2,27 +2,38 @@ import pickle
 from .models import Configuration
 from django.shortcuts import render
 from django.core import serializers
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def index(request):
-    return render(request, "default.html", {"title_of_page": "Index Page",
-                                            "number_off_stock": 1})
+    template = loader.get_template("default.html")
+
+    context = {
+        "app_title":"Stock Prediction",
+        "module_name":"Index",
+        "title_of_page": "Index Page",
+        "number_off_stock": 1
+    }
+
+    return HttpResponse(template.render(request, context))
 
 @csrf_exempt
 def configuration_index(request):
+
+    template = loader.get_template("configuration.html")
+
     context = {
+        "app_title":"Stock Prediction",
+        "module_name":"Configuration",
         "title_of_page": "Configuration"
     }
-    return render(request, "configuration.html", context)
+
+    return HttpResponse(template.render(context, request))
 
 def configuration(request):
     all_items = Configuration.objects.all()
-
-    """ result=[]
-    for item in config_list:
-        result.append({'key':item.key, 'value':item.value, 'HasActive':item.HasActive}) """
     
     result = serializers.serialize('json', all_items)
 
