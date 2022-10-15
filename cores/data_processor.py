@@ -1,3 +1,5 @@
+import os
+import datetime
 from data_processors.vnstock import VnStock
 from cores.class_base.data_processor_base import DataProcessorBase
 from extensions.technical_indicators.commons.heikin_ashi_indicator import HeikinAshiIndicator
@@ -16,13 +18,17 @@ class DataProcessor(DataProcessorBase):
         vnStockObj = VnStock(self.symbol, self.data_source, self.start_date, self.end_date)
         return vnStockObj.get_raw_data()
 
-    def run(self):
+    def run(self, is_plot):
         self.DATA = self.download_data()
-        # convert candlestick data to heikin ashi data
-        #heikin_ashi = HeikinAshiIndicator(self.DATA)
-        #self.DATA  = heikin_ashi.calculate()
+
+        date = datetime.date.today().strftime("%Y-%m-%d")
+        directory = f"D:\OutsourceViet//SourceCode//MachineLearning_CommonCode//datasets//{date}"
+        if not os.path.isdir(directory):
+            os.mkdir(directory)
+
+        self.DATA.to_csv(f"{directory}//{self.symbol}_original.csv")
         smoothed_heikin_ashi = SmoothedHeikinAshiIndicator(self.DATA)
-        self.DATA  = smoothed_heikin_ashi.calculate()
+        self.DATA  = smoothed_heikin_ashi.calculate(is_plot)
         return self.DATA
 
     def get_raw_data(self):

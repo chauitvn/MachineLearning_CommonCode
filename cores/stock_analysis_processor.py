@@ -1,4 +1,4 @@
-from exploratory_data_analysis.arima_feature import ArimaCalc
+from StockPrediction_backend.exploratory_data_analysis.arima_feature import ArimaCalc
 
 
 class StockAnalysisProcessor:

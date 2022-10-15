@@ -16,9 +16,10 @@ Including another URLconf
 from . import views
 from django.contrib import admin
 from django.urls import path, include
-from .views import CrawlingHistoryData
+from .views import CrawlingHistoryData, StockAnalysis
 
 urlpatterns = [
-    path("", views.index, name="g_index"),
+    path("", views.index, name="crawlingData"),
     path("crawling", CrawlingHistoryData.as_view(), name="crawlingData"),
+    path("analysis", StockAnalysis.as_view(), name="StockAnalysis"),
 ]

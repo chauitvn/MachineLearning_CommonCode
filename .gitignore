@@ -25,3 +25,7 @@ StockPredictionPortal/extensions/technical_indicators/commons/__pycache__/**
 StockPredictionPortal/StockPredictionApp/migrations/__pycache__/**
 StockPredictionPortal/FeatureEngineeringApp/__pycache__/**
 StockPredictionPortal/FeatureEngineeringApp/migrations/__pycache__/**
+StockPrediction_backend/rl_training/__pycache__/**
+StockPrediction_backend/feature_engineering/__pycache__/**
+StockPrediction_backend/exploratory_data_analysis/__pycache__/**
+datasets/**

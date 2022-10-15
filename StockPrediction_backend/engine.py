@@ -1,5 +1,7 @@
 import pandas as pd
 from datetime import date
+import os, sys
+sys.path.insert(0, os.getcwd())
 from cores.data_processor import DataProcessor
 from cores.class_base.engine_base import EngineBase
 from cores.feature_engineering_processor import FeatureEngineeringProcessor
@@ -35,7 +37,7 @@ class Engine(EngineBase):
             start_date = "2000-01-01"
             today = date.today().strftime("%Y-%m-%d")
         
-            dpObj = DataProcessor(start_date, today)
+            dpObj = DataProcessor(symbol, "vnd", start_date, today)
             self.DATA = dpObj.run()
             # to check whether do we need to export stock data to local or not.
             if(self.isExportHisData):

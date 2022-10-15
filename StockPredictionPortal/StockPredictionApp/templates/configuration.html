@@ -13,38 +13,104 @@
 
 {% block js %}
 <script src="{% static 'portal_site/plugins/jsgrid/jsgrid.min.js' %}"></script>
+<script src="{% static 'portal_site/plugins/jquery-cookie/js.cookie.min.js' %}"></script>
 
 <script type="text/javascript">
     $(function () {
         $("#configurationList").jsGrid({
             height: "auto",
             width: "100%",
-            filtering: false,
+            filtering: true,
             inserting: true,
             editing: true,
             sorting: true,
             paging: true,
+            autoload: true,
+
+            onItemUpdating: function(args) {
+                previousItem = args.previousItem;
+            },
+
             pageSize: 15,
             pageButtonCount: 5,
-            autoload: true,
+
+            deleteConfirm: "Do you really want to delete the item?",
+
             controller: {
                 loadData: function () {
                     var d = $.Deferred();
                     $.ajax({
                         url: '{% url "allConfiguration" %}',
-                        datatype: "json"
+                        datatype: "JSON"
                     }).done(function (response) {
-                        d.resolve(JSON.parse(response));
 
-                        console.log(JSON.parse(response));
+                        console.log(response);
+
+                        d.resolve(JSON.parse(response));
                     });
                     return d.promise();
-                }
+                },
+
+                insertItem: function(item) {
+                    var d = $.Deferred();
+
+                    console.log(item);
+
+                    $.ajax({
+                        headers: {"X-CSRFToken": Cookies.get('csrftoken')},
+                        url: '{% url "add" %}',
+                        type : "POST",
+                        data: item
+                    }).done(function(response) {
+                        //alert('success');
+                        d.resolve(response);
+                    }).fail(function() {
+                        d.resolve(previousItem);
+                    });
+
+                    return d.promise();
+                },
+
+                updateItem: function(item) {
+                    var d = $.Deferred();
+
+                    $.ajax({
+                        headers: {"X-CSRFToken": Cookies.get('csrftoken')},
+                        url: '{% url "edit" %}',
+                        type : "POST",
+                        data: item
+                    }).done(function(response) {
+                        d.resolve(response);
+                    }).fail(function() {
+                        d.resolve(previousItem);
+                    });
+
+                    return d.promise();
+                },
+
+                deleteItem: function(item) {
+                    var d = $.Deferred();
+
+                    $.ajax({
+                        headers: {"X-CSRFToken": Cookies.get('csrftoken')},
+                        url: '{% url "del" %}',
+                        type : "POST",
+                        data: item
+                    }).done(function(response) {
+                        d.resolve(response);
+                    }).fail(function() {
+                        d.resolve(previousItem);
+                    });
+
+                    return d.promise();
+                },
             },
             fields: [
-                { name: "fields.key", type: "text", title: "Key" },
-                { name: "fields.value", type: "text", title: "Value" },
-                { name: "fields.HasActive", type: "checkbox", title: "Active" }
+                { name: "pk", type: "hidden", title: "Key", visible: false },
+                { name: "fields.key", type: "text", title: "Key", validate: "required" },
+                { name: "fields.value", type: "text", title: "Value", validate: "required" },
+                { name: "fields.HasActive", type: "checkbox", title: "Active", validate: "required" },
+                { type: "control" }
             ]
         });
     });

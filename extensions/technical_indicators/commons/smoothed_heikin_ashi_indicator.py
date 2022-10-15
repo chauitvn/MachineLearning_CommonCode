@@ -18,17 +18,17 @@ class SmoothedHeikinAshiIndicator(Indicator_Base):
         return_value = min(values)
         return return_value
 
-    def buiding_indicator(self):
+    def buiding_indicator(self, periods, is_plot):
         self._DATA["Open_Previous"] = self._DATA["open"].shift(periods=1)
         self._DATA["Close_Previous"] = self._DATA["close"].shift(periods=1)
 
         # Calculate EMA
-        self._DATA["ema_open"] = ta.EMA(self._DATA["open"], 6)
-        self._DATA["ema_close"] = ta.EMA(self._DATA["close"], 6)
-        self._DATA["ema_high"] = ta.EMA(self._DATA["high"], 6)
-        self._DATA["ema_low"] = ta.EMA(self._DATA["low"], 6)
-        self._DATA["ema_open_previous"] = ta.EMA(self._DATA["Open_Previous"], 6)
-        self._DATA["ema_close_previous"] = ta.EMA(self._DATA["Close_Previous"], 6)
+        self._DATA["ema_open"] = ta.EMA(self._DATA["open"], periods)
+        self._DATA["ema_close"] = ta.EMA(self._DATA["close"], periods)
+        self._DATA["ema_high"] = ta.EMA(self._DATA["high"], periods)
+        self._DATA["ema_low"] = ta.EMA(self._DATA["low"], periods)
+        self._DATA["ema_open_previous"] = ta.EMA(self._DATA["Open_Previous"], periods)
+        self._DATA["ema_close_previous"] = ta.EMA(self._DATA["Close_Previous"], periods)
 
 
         # Heiken-Ashi Open
@@ -49,28 +49,21 @@ class SmoothedHeikinAshiIndicator(Indicator_Base):
         self._DATA["high"] = self._DATA["HA_High"]
         self._DATA["low"] = self._DATA["HA_Low"]
 
+        if is_plot == False:
+            # Resample the time series data
+            self._DATA = self._DATA.asfreq('D')
+            self._DATA["adjust_weekly"] = self._DATA["close"].resample('W-MON').mean()
+            self._DATA["adjust_monthly"] = self._DATA["close"].resample('M').mean()
+
+            self._DATA.fillna(method ='bfill', inplace=True)
+            self._DATA.fillna(method ='ffill', inplace=True)
+
         # removing the unused data
         drop_columns = ["Open_Previous", "Close_Previous", "HA_High", "HA_Low", "HA_Open", "HA_Close", "adjust", "ema_open","ema_close",
                     "ema_high","ema_low","ema_open_previous","ema_close_previous"]
         self._DATA.drop(columns=drop_columns, axis=1, inplace=True)
 
 
-    def calculate(self):
-        self.buiding_indicator()
+    def calculate(self, is_plot):
+        self.buiding_indicator(5, is_plot)
         return self._DATA
-
-
-    def plot(self):
-        sampleData = self._DATA.tail(200)
-        
-        date = sampleData.index
-        fig = go.Figure(data=[go.Candlestick(x=date,
-                open=sampleData[self.open],
-                high=sampleData[self.high],
-                low=sampleData[self.low],
-                close=sampleData[self.close],)])
-        fig.update_layout(
-            title='The Smoothed Heiki Ashi',
-            yaxis_title='{} Stock'.format(self.stock_symbol)
-        )
-        fig.show()
