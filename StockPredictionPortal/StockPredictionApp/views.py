@@ -10,6 +10,11 @@ def index(request):
     return render(request, "default.html", {"title_of_page": "Index Page",
                                             "number_off_stock": 1})
 
+# Create your views here.
+def news(request):
+    return render(request, "default.html", {"title_of_page": "Index Page",
+                                            "number_off_stock": 1})
+
 @csrf_exempt
 def configuration_index(request):
     context = {

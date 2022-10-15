@@ -29,14 +29,15 @@
             <a href="#" class="nav-link active">
                 <i class="fas fa-user-cog"></i>
                 <p>
-                    Quản trị<i class="right fas fa-angle-left"></i>
+                    Quản trị
+                    <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{% url 'c_index'%}" class="nav-link active">
-                        <i class="fas fa-arrow-right"></i>
-                        <p>Cấu Hình</p>
+                    <a href='{% url "c_index" %}' class="nav-link active">
+                        <i class="fas fa-cog"></i>
+                        <p>Cấu hình</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -45,7 +46,12 @@
                         <p>Mô Hình Dự Báo</p>
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Quỹ</p>
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="nav-item menu-open">
@@ -66,13 +72,13 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{% url 'g_index'%}" class="nav-link">
+                    <a href="{% url 'crawlingData'%}" class="nav-link">
                         <i class="far fa-windsock"></i>
                         <p>Phân Tích Kỹ Thuật</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'f_index'%}" class="nav-link">
+                    <a href="{% url 'StockAnalysis'%}" class="nav-link">
                         <i class="fas fa-hand-holding-usd"></i>
                         <p>
                             Dự báo giá cổ phiếu
