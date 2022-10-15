@@ -18,7 +18,7 @@ class DataProcessor(DataProcessorBase):
         vnStockObj = VnStock(self.symbol, self.data_source, self.start_date, self.end_date)
         return vnStockObj.get_raw_data()
 
-    def run(self):
+    def run(self, is_plot):
         self.DATA = self.download_data()
 
         date = datetime.date.today().strftime("%Y-%m-%d")
@@ -28,7 +28,7 @@ class DataProcessor(DataProcessorBase):
 
         self.DATA.to_csv(f"{directory}//{self.symbol}_original.csv")
         smoothed_heikin_ashi = SmoothedHeikinAshiIndicator(self.DATA)
-        self.DATA  = smoothed_heikin_ashi.calculate()
+        self.DATA  = smoothed_heikin_ashi.calculate(is_plot)
         return self.DATA
 
     def get_raw_data(self):

@@ -16,7 +16,7 @@ class NeuralFbProphet(Indicator_Base):
         model = NeuralProphet()
         model.fit(new_df, freq='D')
         # Using the model to make a forecast
-        future = model.make_future_dataframe(new_df, periods=7, n_historic_predictions=len(new_df))
+        future = model.make_future_dataframe(new_df, periods=20, n_historic_predictions=len(new_df))
         forecast_df = model.predict(future)
         # renaming column names to understand easily
         forecast_df.rename(

@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from cores.data_processor import DataProcessor
 from django.views.generic import TemplateView, View, DeleteView
+from extensions.technical_indicators.ai_indicators.neural_prophet import NeuralFbProphet
 
 
 # Create your views here.
@@ -21,7 +22,9 @@ class CrawlingHistoryData(View):
         start_date = "2000-01-01"
         today = datetime.date.today().strftime("%Y-%m-%d")
         dpObj = DataProcessor(symbol, "vnd", start_date, today)
-        self.DATA = dpObj.run()
+
+        is_plot = True
+        self.DATA = dpObj.run(is_plot)
 
         date = datetime.date.today().strftime("%Y-%m-%d")
         directory = f"D:\OutsourceViet//SourceCode//MachineLearning_CommonCode//datasets//{date}"
@@ -63,3 +66,20 @@ class CrawlingHistoryData(View):
             'fig': plot_div
         }
         return JsonResponse(data)
+
+#Analysis Data
+class StockAnalysis(View):
+    def get(self, request):
+        analysis_model = request.GET.get('analysis_model', None)
+
+        if analysis_model =="Neural Prophet":
+            obj = NeuralFbProphet()
+            obj.calculate()
+
+
+        plot_div = plot(fig,output_type='div')
+
+        data_return = {
+            'fig': plot_div
+        }
+        return JsonResponse(data_return)
